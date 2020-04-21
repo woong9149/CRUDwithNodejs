@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/woong9149/CRUDwithNodejs#readme",
   "dependencies": {
+    "mysql": "^2.18.1",
     "sanitize-html": "^1.23.0"
   }
 }
