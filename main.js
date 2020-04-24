@@ -29,9 +29,15 @@ var app = http.createServer(function(request,response){
         topic.delete_process(request,response);
     }else if(pathname === '/authorTable'){
         author.home(request,response);
+    }else if(pathname === '/author_create_process'){
+        author.create_process(request,response);
+    }else if(pathname === '/author_update'){
+        author.update(request,response);
+    }else if(pathname === '/author_update_process'){
+        author.update_process(request,response);
     }else if(pathname === '/authorDel_process'){
         author.delete_process(request,response);
-    } else{
+    }else{
         response.writeHead(404);
         response.end('Not Found');
     }
