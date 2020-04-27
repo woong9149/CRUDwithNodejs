@@ -1,3 +1,28 @@
+const express = require('express')
+const app =express()
+const url = require('url')
+const topic = require('./lib/topic');
+const author = require('./lib/author');
+
+
+
+app.get('/',(req,res) => {
+    var _url = req.url;
+    var queryData = url.parse(_url,true).query;
+    if(queryData.id === undefined){
+        topic.home(req,res);
+    }else{
+        topic.page(req,res);
+    }
+ 
+})
+
+app.get('/page/:pageId/:chapterId',(req,res)=>{
+    res.send(req.params);
+})
+app.listen(3000, ()=> console.log('Example app listening on port 3000!'))
+
+/*
 var http = require('http');
 var url = require('url');
 var qs = require('querystring');
@@ -43,3 +68,5 @@ var app = http.createServer(function(request,response){
     }
 });
 app.listen(3000);
+
+*/
