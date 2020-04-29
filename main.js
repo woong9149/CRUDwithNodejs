@@ -3,23 +3,17 @@ const app =express()
 const url = require('url')
 const topic = require('./lib/topic');
 const author = require('./lib/author');
-
-//body : 웹브라우저쪽에서 요청한 정보의 본체를 body라함.
-//body-parser: 그 body를 분석해서 사용함.
+const bodyParser = require('body-parser');
+const compression = require('compression');
 
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(compression());
 
 app.get('/',(req,res) => {
     var _url = req.url;
     var queryData = url.parse(_url,true).query;
     topic.home(req,res);
-    // if(queryData.id === undefined){
-    //     topic.home(req,res);
-    // }else{
-    //     topic.page(req,res);
-    // }
- 
-})
+    })
 
 app.get('/page/:pageId',(req,res)=>{
     topic.page(req,res);
