@@ -1,13 +1,25 @@
 const express = require('express')
 const app =express()
+var db = require('./lib/db');
 const url = require('url')
 const topic = require('./lib/topic');
 const author = require('./lib/author');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(compression());
+app.use(compression());//compression()을 호출하면 미들웨어를 리턴한다.
+
+app.get('*',function(request,response,next){
+  db.query('SELECT * FROM topic',function(error,topics){
+      if(error){
+          throw error;
+      }
+      request.list = topics;
+      next();
+  })
+})
 
 app.get('/',(req,res) => {
     var _url = req.url;
