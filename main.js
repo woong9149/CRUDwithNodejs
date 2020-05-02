@@ -6,6 +6,9 @@ const topic = require('./lib/topic');
 const author = require('./lib/author');
 const bodyParser = require('body-parser');
 const compression = require('compression');
+const topicRouter = require('./routes/topic');
+const helmet = require('helmet');
+app.use(helmet());
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -21,35 +24,15 @@ app.get('*',function(request,response,next){
   })
 })
 
+app.use('/topic',topicRouter);
+
 app.get('/',(req,res) => {
     var _url = req.url;
     var queryData = url.parse(_url,true).query;
     topic.home(req,res);
     })
 
-app.get('/page/:pageId',(req,res)=>{
-    topic.page(req,res);
-})
 
-app.get('/create',(req,res)=>{
-    topic.create(req,res);
-})
-
-app.post('/create_process',(req,res)=>{
-    topic.create_process(req,res);
-})
-
-app.get('/update/:updateId',(req,res)=>{
-    topic.update(req,res);
-})
-
-app.post('/update_process',(req,res)=>{
-    topic.update_process(req,res);
-})
-
-app.post('/delete_process',(req,res)=>{
-    topic.delete_process(req,res);
-})
 
 app.get('/authorTable',(req,res)=>{
     author.home(req,res);
