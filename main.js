@@ -8,18 +8,34 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 const topicRouter = require('./routes/topic');
 const helmet = require('helmet');
+const cookie = require('cookie');
 app.use(helmet());
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(compression());//compression()을 호출하면 미들웨어를 리턴한다.
 
+function authIsOwner(request,response){
+    var isOwner = false;
+    var cookies = {};
+    if(request.headers.cookie){
+        cookies = cookie.parse(request.headers.cookie);
+    }
+    if(cookies.email === 'egoing777@gmail.com' && cookies.password ==='111111'){
+        isOwner = true;
+    }
+    return isOwner;
+}
+
 app.get('*',function(request,response,next){
+    var isOwner = authIsOwner(request,response);
+    console.log('isOwner: ',isOwner);
   db.query('SELECT * FROM topic',function(error,topics){
       if(error){
           throw error;
       }
       request.list = topics;
+      request.isOwner = isOwner;
       next();
   })
 })
