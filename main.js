@@ -60,6 +60,9 @@ app.post('/login_process',(req,res) => {
     topic.login_process(req,res);
 })
 
+app.get('/logout_process',(req,res) => {
+    topic.logout_process(req,res);
+})
 
 app.get('/authorTable',(req,res)=>{
     author.home(req,res);
