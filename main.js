@@ -40,6 +40,12 @@ app.get('*',function(request,response,next){
   })
 })
 
+// app.post('*',function(request,response,next){
+//     var isOwner = authIsOwner(request,response);
+//     request.isOwner = isOwner;
+//     next();
+// });
+
 app.use('/topic',topicRouter);
 
 app.get('/',(req,res) => {
@@ -78,6 +84,10 @@ app.get('/author_update/:author_updateId',(req,res)=>{
 
 app.post('/author_update_process', (req,res)=>{
     author.update_process(req,res);
+})
+
+app.post('/authorDel_process', (req,res)=>{
+    author.delete_process(req,res);
 })
 
 app.use(function(req,res,next){
