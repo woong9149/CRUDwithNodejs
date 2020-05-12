@@ -7,8 +7,19 @@ const author = require('./lib/author');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const topicRouter = require('./routes/topic');
+const authRouter = require('./routes/auth');
 const helmet = require('helmet');
 const cookie = require('cookie');
+const session = require('express-session');
+const FIleStore = require('session-file-store')(session)
+
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    store: new FIleStore()
+}))
+
 app.use(helmet());
 
 app.use(express.static('public'));
@@ -47,6 +58,7 @@ app.post('*',function(request,response,next){
 });
 
 app.use('/topic',topicRouter);
+app.use('/auth',authRouter);
 
 app.get('/',(req,res) => {
     var _url = req.url;
