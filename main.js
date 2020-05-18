@@ -33,7 +33,7 @@ function authIsOwner(request,response){
         cookies = cookie.parse(request.headers.cookie);
     }
     if(cookies.email === 'egoing777@gmail.com' && cookies.password ==='111111'){
-        isOwner = '';
+        isOwner = true;
     }
     return isOwner;
 }
