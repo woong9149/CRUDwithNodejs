@@ -66,18 +66,6 @@ app.get('/',(req,res) => {
     topic.home(req,res);
 })
 
-// app.get('/login',(req,res) => {
-//     // var _url = req.url;
-//     // var queryData = url.parse(_url,true).query;
-//     topic.logIn(req,res);
-// })
-
-// app.post('/login_process',(req,res) => {
-//     // var _url = req.url;
-//     // var queryData = url.parse(_url,true).query;
-//     topic.login_process(req,res);
-// })
-
 app.get('/logout_process',(req,res) => {
     topic.logout_process(req,res);
 })
