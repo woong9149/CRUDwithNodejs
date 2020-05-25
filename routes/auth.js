@@ -13,6 +13,7 @@ router.get('/login',(req,res)=>{
 })
 
 router.post('/login_process',(req,res)=>{
+    console.log('req: ',req);
     topic.login_process(req,res);
 })
 
