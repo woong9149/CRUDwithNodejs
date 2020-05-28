@@ -38,6 +38,7 @@ function authIsOwner(request,response){
     return isOwner;
 }
 
+
 app.get('*',function(request,response,next){
     var isOwner = authIsOwner(request,response);
     console.log('isOwner: ',isOwner);
