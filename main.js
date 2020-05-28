@@ -66,15 +66,7 @@ app.get('/',(req,res) => {
     topic.home(req,res);
 })
 
-// app.get('/auth/login',(req,res)=>{
-//     topic.logIn(req,res);
-//     console.log('success !')
-// })
 
-// app.post('/auth/login_process',(req,res)=>{
-//     console.log('req: ',req);
-//     topic.login_process(req,res);
-// })
 
 app.get('/logout_process',(req,res) => {
     topic.logout_process(req,res);
