@@ -66,8 +66,6 @@ app.get('/',(req,res) => {
     topic.home(req,res);
 })
 
-
-
 app.get('/logout_process',(req,res) => {
     topic.logout_process(req,res);
 })
