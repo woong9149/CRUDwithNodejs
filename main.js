@@ -51,6 +51,7 @@ app.get('*',function(request,response,next){
   })
 })
 
+
 app.post('*',function(request,response,next){
     var isOwner = authIsOwner(request,response);
     request.isOwner = isOwner;
