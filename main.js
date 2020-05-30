@@ -13,12 +13,12 @@ const cookie = require('cookie');
 const session = require('express-session');
 const FIleStore = require('session-file-store')(session)
 
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    store: new FIleStore()
-}))
+// app.use(session({
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: true,
+//     store: new FIleStore()
+// }))
 
 app.use(helmet());
 
@@ -31,6 +31,8 @@ function authIsOwner(request,response){
     var cookies = {};
     if(request.headers.cookie){
         cookies = cookie.parse(request.headers.cookie);
+        // cookies.email = cookie.parse(request.body.email);
+        // cookies.password = cookie.parse(request.body.password);
     }
     if(cookies.email === 'egoing777@gmail.com' && cookies.password ==='111111'){
         isOwner = true;
@@ -39,32 +41,42 @@ function authIsOwner(request,response){
 }
 
 app.get('*',function(request,response,next){
-    var isOwner = authIsOwner(request,response);
-    console.log('isOwner: ',isOwner);
+    // var isOwner = authIsOwner(request,response);
+    // console.log('isOwner: ',isOwner);
   db.query('SELECT * FROM topic',function(error,topics){
       if(error){
           throw error;
       }
       request.list = topics;
-      request.isOwner = isOwner;
+    //   request.isOwner = isOwner;
       next();
   })
 })
 
 
-app.post('*',function(request,response,next){
-    var isOwner = authIsOwner(request,response);
-    request.isOwner = isOwner;
-    next();
-});
+// app.post('*',function(request,response,next){
+//     var isOwner = authIsOwner(request,response);
+//     request.isOwner = isOwner;
+//     next();
+// });
 
 app.use('/topic',topicRouter);
-app.use('/auth',authRouter);
+// app.use('/auth',authRouter);
 
 app.get('/',(req,res) => {
     var _url = req.url;
     var queryData = url.parse(_url,true).query;
     topic.home(req,res);
+})
+
+app.get('/auth/login',(req,res)=>{
+    topic.logIn(req,res);
+    console.log('success !')
+})
+
+app.post('/auth/login_process',(req,res)=>{
+    console.log('req: ',req);
+    topic.login_process(req,res);
 })
 
 app.get('/logout_process',(req,res) => {
