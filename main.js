@@ -41,27 +41,27 @@ function authIsOwner(request,response){
 }
 
 app.get('*',function(request,response,next){
-    // var isOwner = authIsOwner(request,response);
-    // console.log('isOwner: ',isOwner);
+    var isOwner = authIsOwner(request,response);
+    console.log('isOwner: ',isOwner);
   db.query('SELECT * FROM topic',function(error,topics){
       if(error){
           throw error;
       }
       request.list = topics;
-    //   request.isOwner = isOwner;
+      request.isOwner = isOwner;
       next();
   })
 })
 
 
-// app.post('*',function(request,response,next){
-//     var isOwner = authIsOwner(request,response);
-//     request.isOwner = isOwner;
-//     next();
-// });
+app.post('*',function(request,response,next){
+    var isOwner = authIsOwner(request,response);
+    request.isOwner = isOwner;
+    next();
+});
 
 app.use('/topic',topicRouter);
-// app.use('/auth',authRouter);
+app.use('/auth',authRouter);
 
 app.get('/',(req,res) => {
     var _url = req.url;
@@ -69,15 +69,15 @@ app.get('/',(req,res) => {
     topic.home(req,res);
 })
 
-app.get('/auth/login',(req,res)=>{
-    topic.logIn(req,res);
-    console.log('success !')
-})
+// app.get('/auth/login',(req,res)=>{
+//     topic.logIn(req,res);
+//     console.log('success !')
+// })
 
-app.post('/auth/login_process',(req,res)=>{
-    console.log('req: ',req);
-    topic.login_process(req,res);
-})
+// app.post('/auth/login_process',(req,res)=>{
+//     console.log('req: ',req);
+//     topic.login_process(req,res);
+// })
 
 app.get('/logout_process',(req,res) => {
     topic.logout_process(req,res);
