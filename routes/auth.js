@@ -17,6 +17,11 @@ router.post('/login_process',(req,res)=>{
     topic.login_process(req,res);
 })
 
+router.get('/logout_process',(req,res)=>{
+    console.log('req: ',req);
+    topic.logout_process(req,res);
+})
+
 module.exports = router;
 
 
