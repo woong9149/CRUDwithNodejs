@@ -13,12 +13,18 @@ const cookie = require('cookie');
 const session = require('express-session');
 const FIleStore = require('session-file-store')(session)
 
-
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
     store: new FIleStore()
+}))
+
+const passport = require('passport'),
+LocalStrategy = require('passport-local').Strategy;
+
+passport.use(new LocalStrategy(function(username,password,done){
+
 }))
 
 app.use(helmet());
