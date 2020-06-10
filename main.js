@@ -20,12 +20,12 @@ app.use(session({
     store: new FIleStore()
 }))
 
-const passport = require('passport'),
-LocalStrategy = require('passport-local').Strategy;
+// const passport = require('passport'),
+// LocalStrategy = require('passport-local').Strategy;
 
-passport.use(new LocalStrategy(function(username,password,done){
+// passport.use(new LocalStrategy(function(username,password,done){
 
-}))
+// }))
 
 app.use(helmet());
 
