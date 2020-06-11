@@ -20,6 +20,10 @@ app.use(session({
     store: new FIleStore()
 }))
 
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+
 // const passport = require('passport'),
 // LocalStrategy = require('passport-local').Strategy;
 
