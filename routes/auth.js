@@ -14,8 +14,8 @@ var authData = {
     nickname: 'egoing'
 }
 
-router.use(passport.initialize());
-router.use(passport.session());
+// router.use(passport.initialize());
+// router.use(passport.session());
 
 passport.serializeUser(function(user,done){
     console.log('serialize : ',user);
@@ -24,6 +24,7 @@ passport.serializeUser(function(user,done){
 
 passport.deserializeUser(function(id,done){
     console.log('deserializeUser : ',id);
+    done(null,authData);
 })
 
 passport.use(new LocalStrategy(

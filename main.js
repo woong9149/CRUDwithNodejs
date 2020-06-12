@@ -12,6 +12,8 @@ const helmet = require('helmet');
 const cookie = require('cookie');
 const session = require('express-session');
 const FIleStore = require('session-file-store')(session)
+const passport = require('passport'),
+LocalStrategy = require('passport-local').Strategy;
 
 app.use(session({
     secret: 'keyboard cat',
@@ -20,8 +22,8 @@ app.use(session({
     store: new FIleStore()
 }))
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 // const passport = require('passport'),
