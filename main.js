@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 const topicRouter = require('./routes/topic');
 const authRouter = require('./routes/auth');
+const homeRouter = require('./routes/home');
 const helmet = require('helmet');
 const cookie = require('cookie');
 const session = require('express-session');
@@ -25,19 +26,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-// const passport = require('passport'),
-// LocalStrategy = require('passport-local').Strategy;
-
-// passport.use(new LocalStrategy(function(username,password,done){
-
-// }))
-
 app.use(helmet());
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(compression());//compression()을 호출하면 미들웨어를 리턴한다.
+
+app.set('views',__dirname+'/src/view');
+app.set('view engine','ejs');
 
 function authIsOwner(request,response){
     var isOwner = false;
@@ -73,24 +69,16 @@ app.post('*',function(request,response,next){
     next();
 });
 
+// app.use('/',homeRouter);
 app.use('/topic',topicRouter);
 app.use('/auth',authRouter);
 
 app.get('/',(req,res) => {
-    var _url = req.url;
-    var queryData = url.parse(_url,true).query;
-    topic.home(req,res);
+    // var _url = req.url;
+    // var queryData = url.parse(_url,true).query;
+    // topic.home(req,res);
+    res.render('home',{});
 })
-
-// app.get('/auth/login',(req,res)=>{
-//     topic.logIn(req,res);
-//     console.log('success !')
-// })
-
-// app.post('/auth/login_process',(req,res)=>{
-//     console.log('req: ',req);
-//     topic.login_process(req,res);
-// })
 
 app.get('/logout_process',(req,res) => {
     topic.logout_process(req,res);
